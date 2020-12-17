@@ -1,0 +1,22 @@
+/* PHASE 0: Sidebar */
+.profile-picture{
+    margin-top: -20px;
+    position: relative;
+    
+
+
+}
+
+.profile-info{
+
+}
+
+.profile-nav > li {
+    border-top: 1px solid lightgray;
+    font-weight: 700;
+    padding: 5px;
+}
+
+.profile-nav:last-child {
+    border-bottom: 1px solid lightgray;
+}
