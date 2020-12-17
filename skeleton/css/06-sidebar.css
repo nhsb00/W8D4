@@ -27,7 +27,7 @@
 
 
 .profile-nav > li {
-    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
     font-weight: 700;
     padding: 5px;
     
@@ -37,8 +37,8 @@
     background-color:#eee;
 }
 
-.profile-nav:last-child {
-    border-bottom: 1px solid lightgray;
+.profile-nav > li:first-child {
+    border-top: 1px solid lightgray;
 }
 
 .online {
