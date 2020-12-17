@@ -48,7 +48,7 @@ Board.prototype.isValidPos = function(pos) {
  */
 Board.prototype.getPiece = function (pos) {
   if (!this.isValidPos(pos)) {
-    throw new Error('Invalid position');
+    throw new Error('Not valid pos!');
   } else {
     return this.grid[pos[0]][pos[1]] ; 
   }
@@ -60,14 +60,18 @@ Board.prototype.getPiece = function (pos) {
  */
 Board.prototype.isMine = function (pos, color) {
   let piece = this.getPiece(pos);
-  (piece.color === color)? true : false;
+  if (piece === undefined){
+    return false;
+  }
+  return (piece.color === color)? true : false;
+  
 };
 
 /**
  * Checks if a given position has a piece on it.
  */
 Board.prototype.isOccupied = function (pos) {
-  (this.grid[pos[0]][pos[1]] === "") ? false : true;
+  return (this.grid[pos[0]][pos[1]] === undefined ) ? false : true;
 };
 
 /**
@@ -84,7 +88,37 @@ Board.prototype.isOccupied = function (pos) {
  * Returns empty array if no pieces of the opposite color are found.
  */
 Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip){
+  if (!piecesToFlip) {
+    piecesToFlip = [];
+  } else {
+    piecesToFlip.push(pos);
+  };
+  // if (!this.isValidPos(pos)) {
+  //   return [];
+  // }
 
+  let nextPos = [pos[0]+dir[0], pos[1]+dir[1]];
+
+  if (!this.isValidPos(nextPos)){
+      return [];
+  } else if (!this.isOccupied(nextPos)){
+      return [];
+  } else if (this.isMine(nextPos, color)){
+      return (piecesToFlip === undefined) ? [] : piecesToFlip;
+  } else {
+      return this._positionsToFlip(nextPos, color, dir, piecesToFlip);
+  };
+// else if (this.DIRS.includes(dir)) {
+//     return [];
+//   } 
+  // };
+  //   if ((this.getPiece(nextPos)) && (this.getPiece(nextPos).color != color)){
+  //   piecesToFlip.push(nextPos);
+  //   return this._positionsToFlip(nextPos. color, dir, piecesToFlip);
+  // } else {
+  //   return piecesToFlip;
+  // };
+    
 };
 
 /**
@@ -93,6 +127,7 @@ Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip){
  * color being flipped.
  */
 Board.prototype.validMove = function (pos, color) {
+
 };
 
 /**
