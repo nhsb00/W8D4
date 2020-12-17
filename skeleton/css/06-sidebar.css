@@ -1,22 +1,58 @@
 /* PHASE 0: Sidebar */
 .profile-picture{
-    margin-top: -20px;
+    display:block;
+    margin-top: -120px;
     position: relative;
-    
-
-
+    border: 1px solid black;
+    border-radius: 5px;
+    background: black;
+    overflow: hidden;
 }
 
-.profile-info{
-
+.content-sidebar img {
+    border-radius: 5px;
 }
+
+.profile-info {
+    margin: 20px 0 20px 0;
+}
+
+.profile-info h2{
+    font-size: 24px ;
+    font-weight: 700 ;
+}
+.profile-info p{
+    margin: 20px 0 20px 0;
+}
+
 
 .profile-nav > li {
     border-top: 1px solid lightgray;
     font-weight: 700;
     padding: 5px;
+    
+}
+
+.profile-nav > li:hover {
+    background-color:#eee;
 }
 
 .profile-nav:last-child {
     border-bottom: 1px solid lightgray;
+}
+
+.online {
+    display:block;
+    background: #0c0;
+    text-transform:uppercase;
+    font-weight:700;
+    position: absolute;
+    transform: rotate(-45deg) translateX(-25%);
+    color: white;
+    top:-10px;
+    left:-10px;
+    padding: 5px 30px;
+    font-size: 12px;
+    box-shadow: 0 1px 0 0 #070;
+    letter-spacing: 3px;
 }
