@@ -127,7 +127,20 @@ Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip){
  * color being flipped.
  */
 Board.prototype.validMove = function (pos, color) {
+  if (this.isOccupied(pos)) {
+    return false;
+  } else if (!this.isValidPos(pos)) {
+    return false;
+  } 
 
+  let dirs = Board.DIRS;
+  for (let i = 0; i < dirs.length; i++) { 
+    let possibleDir = (this._positionsToFlip(pos, color, dirs[i]));
+    if (possibleDir.length > 0) {
+      return true;
+    }
+  }
+  return false;
 };
 
 /**
@@ -136,7 +149,22 @@ Board.prototype.validMove = function (pos, color) {
  *
  * Throws an error if the position represents an invalid move.
  */
-Board.prototype.placePiece = function (pos, color) {
+Board.prototype.placePiece = function (pos, color) { 
+
+  if (this.validMove(pos,color)) {
+    this.grid[pos[0]][pos[1]] = new Piece(color)
+    // changing the subsequent pieces colors
+    for (let i = 0; i < Board.DIRS.length; i++) { 
+      let possibleMoves = (this._positionsToFlip(pos, color, Board.DIRS[i]));
+
+      for (let i = 0; i < possibleMoves.length; i++) {
+        let piece = this.getPiece(possibleMoves[i]);
+        piece.flip();
+      }
+    }
+  } else {
+    throw new Error("Invalid move!");
+  }
 };
 
 /**
@@ -144,12 +172,24 @@ Board.prototype.placePiece = function (pos, color) {
  * the Board for a given color.
  */
 Board.prototype.validMoves = function (color) {
+  let answer = [];
+
+  for (let i = 0; i < 8; i++) { 
+    for (let j = 0; j < 8; j++) {
+      if (this.validMove([i,j], color)) {
+        answer.push([i,j]);
+      }
+    }
+  }
+  return answer;
 };
 
 /**
  * Checks if there are any valid moves for the given color.
  */
 Board.prototype.hasMove = function (color) {
+
+  return (this.validMoves(color).length > 0);
 };
 
 
@@ -159,6 +199,11 @@ Board.prototype.hasMove = function (color) {
  * the black player are out of moves.
  */
 Board.prototype.isOver = function () {
+
+  if (!this.hasMove("black") && !this.hasMove("white")) {
+    return true;
+  }
+return false;
 };
 
 
@@ -168,6 +213,8 @@ Board.prototype.isOver = function () {
  * Prints a string representation of the Board to the console.
  */
 Board.prototype.print = function () {
+  print(this.grid.toString)
+
 };
 
 
